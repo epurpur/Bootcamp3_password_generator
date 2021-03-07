@@ -103,7 +103,6 @@ function createPassword() {
 
 
 
-
 // Add event listener to generate button
 var generateBtn = document.querySelector("#generate");  //returns the first element in the document that matches the specified selector. Basically, this grabs the 'Generate Password' button;
 generateBtn.addEventListener("click", createPassword);  // upon click, executes writePassword function. But why doesn't writePassword need ()?
