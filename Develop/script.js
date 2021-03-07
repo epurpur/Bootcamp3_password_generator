@@ -1,9 +1,7 @@
 
-// Get user inputs
 
-// ask for length of password
 function passLength() {
-  // asks for length of password from user
+  // asks for length of password from user. Password must be between 8 and 128 characters
   var passwordLength = prompt('Enter the desired length of your password');
   
   if (passwordLength < 8) {
@@ -20,9 +18,10 @@ function passLength() {
 
 // ask for type of characters desired in password
 function typeOfChars() {
-  // asks user for type of characters desired in password. Options include uppercase, lowercase, numeric, special.
-  // returns 'characters', which contains string of list of characters
-  
+  /** asks user for type of characters desired in password. Options include uppercase, lowercase, numeric, special.
+  * returns 'characters', which contains string of list of characters
+  */
+
   var characters = '' //this holds string of list of characters
 
   var goodInputs = ['yes', 'Yes', 'y', 'Y'];  //these are valid user inputs
@@ -50,12 +49,11 @@ function typeOfChars() {
   return characters;
 }
 
-/////////////////////////////START HERE
-var characterString = typeOfChars()
 
 function randomChar(characterString) {
-  // Function creates a random character and returns that character.
-  // Takes argument 'characters' which is string of characters from typeOfChars function
+  /** Function creates a random character and returns that character.
+  * Takes argument 'characterString' which is string of characters returned from typeOfChars function
+  */
 
   // get random character from var characters
   var randomChar = characterString[Math.floor(Math.random() * characterString.length)]
@@ -64,10 +62,10 @@ function randomChar(characterString) {
 }
 
 
-function generatePassword() {
-  // function generates a password of random characters
-  var passwordLength = passLength();
+function generatePassword(characterString) {
+  /** function generates a password of random characters */
 
+  var passwordLength = passLength();
   var password = []
 
   for (var i = 0; i < passwordLength; i++) {
@@ -76,20 +74,36 @@ function generatePassword() {
   }
   password = password.join('')   // join characters in fullPassword array into single string
   
-  console.log(`Current password: ${password}`);
+  //console.log(`Current password: ${password}`);
   
   return password;
 }
 
 
-function writePassword() {
-  // Write password to the #password input
-  var password = generatePassword();
+function createPassword() {
+  /** Main function which goes through all steps to generate password
+   * and pass value to the #password <textarea> tag in index.html file */
   
+  //1. Create characterString that will be used to generate random characters
+  var characterString = typeOfChars()
+  if (characterString.length == 0) {
+    alert('You must choose at least one type of character');
+    var characterString = typeOfChars();  //need to hold result in variable characterString
+  }
+
+  //2. Generate password by grabbing random characters from characterString
+  var password = generatePassword(characterString);
+  
+  //3. Select id='password' from index.html
   var passwordText = document.querySelector("#password");
+
+  //4. Set value of passwordText to password
   passwordText.value = password;
 }
 
+
+
+
 // Add event listener to generate button
 var generateBtn = document.querySelector("#generate");  //returns the first element in the document that matches the specified selector. Basically, this grabs the 'Generate Password' button;
-generateBtn.addEventListener("click", writePassword);  // upon click, executes writePassword function. But why doesn't writePassword need ()?
+generateBtn.addEventListener("click", createPassword);  // upon click, executes writePassword function. But why doesn't writePassword need ()?
