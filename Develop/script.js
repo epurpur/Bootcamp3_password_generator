@@ -90,10 +90,10 @@ function generatePassword() {
     var characterString = typeOfChars();  //need to hold result in variable characterString
   }
 
-  //2. Generate password by grabbing random characters from characterString
+  //2. Assembles password by grabbing random characters from characterString
   var password = assemblePassword(characterString);
   
-  //3. Select id='password' from index.html
+  //3. Select id='password' attribute from index.html
   var passwordText = document.querySelector("#password");
 
   //4. Set value of passwordText to password
