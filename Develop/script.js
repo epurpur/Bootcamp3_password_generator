@@ -16,9 +16,9 @@ function passLength() {
 }
 
 
-// ask for type of characters desired in password
 function typeOfChars() {
-  /** asks user for type of characters desired in password. Options include uppercase, lowercase, numeric, special.
+  /** asks user for type of characters desired in password. Options include uppercase, 
+  * lowercase, numeric, special.
   * returns 'characters', which contains string of list of characters
   */
 
@@ -62,17 +62,16 @@ function randomChar(characterString) {
 }
 
 
-function generatePassword(characterString) {
-  /** function generates a password of random characters */
+function assemblePassword(characterString) {
+  /** function creates a password of random characters and assembles it */
 
   var passwordLength = passLength();
-  var password = []
+  var password = '';
 
   for (var i = 0; i < passwordLength; i++) {
     var tempCharacter = randomChar(characterString);  // creates tempCharacter by executing randomChar()
-    password.push(tempCharacter);    // push character to password array
+    password += tempCharacter
   }
-  password = password.join('')   // join characters in fullPassword array into single string
   
   //console.log(`Current password: ${password}`);
   
@@ -80,7 +79,7 @@ function generatePassword(characterString) {
 }
 
 
-function createPassword() {
+function generatePassword() {
   /** Main function which goes through all steps to generate password
    * and pass value to the #password <textarea> tag in index.html file */
   
@@ -92,7 +91,7 @@ function createPassword() {
   }
 
   //2. Generate password by grabbing random characters from characterString
-  var password = generatePassword(characterString);
+  var password = assemblePassword(characterString);
   
   //3. Select id='password' from index.html
   var passwordText = document.querySelector("#password");
@@ -102,7 +101,6 @@ function createPassword() {
 }
 
 
-
 // Add event listener to generate button
 var generateBtn = document.querySelector("#generate");  //returns the first element in the document that matches the specified selector. Basically, this grabs the 'Generate Password' button;
-generateBtn.addEventListener("click", createPassword);  // upon click, executes writePassword function. But why doesn't writePassword need ()?
+generateBtn.addEventListener("click", generatePassword);  // upon click, executes writePassword function. But why doesn't writePassword need ()?
